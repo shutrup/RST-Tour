@@ -16,15 +16,18 @@ final class HomeViewModel: ObservableObject {
     
     init(networkManager: NetworkManagerProtocol) {
         self.networkManager = networkManager
+        Task {
+            try? await fetchData()
+        }
     }
     
-    @Published var array: [Object] = []
+    @Published var recreationCenters: RecreationCenters? 
     
     @MainActor
     func fetchData() async throws {
         do {
-            let data = try await networkManager.fetchData()
-            self.array = data.data.objects
+            let returnedData = try await networkManager.fetchData()
+            self.recreationCenters = returnedData.data
         } catch {
             print("Error")
         }

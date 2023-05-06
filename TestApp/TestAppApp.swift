@@ -13,7 +13,10 @@ struct TestAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView(vm: vm)
+            NavigationStack {
+                HomeView(vm: vm)
+            }
+            .preferredColorScheme(.dark)
         }
     }
 }

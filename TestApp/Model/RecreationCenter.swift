@@ -7,20 +7,20 @@
 
 import Foundation
 
-struct RecreationCenter: Codable {
+struct RecreationCenter: Codable, Hashable {
     let success: Bool
     let error: Bool?
     let time: String
-    let data: DataClass
+    let data: RecreationCenters
 }
 
-struct DataClass: Codable {
+struct RecreationCenters: Codable, Hashable {
     let geo: Geo
     let categories: [Category]
     let objects: [Object]
 }
 
-struct Category: Codable {
+struct Category: Codable, Hashable {
     let name: String
     let type: TypeCategory
     let icon: Icon
@@ -28,11 +28,11 @@ struct Category: Codable {
     let count: Int
 }
 
-struct Geo: Codable {
+struct Geo: Codable, Hashable {
     let lat, lon: Double
 }
 
-struct Object: Codable {
+struct Object: Codable, Hashable {
     let id: Int
     let name, description: String
     let image: String
@@ -49,7 +49,7 @@ struct Object: Codable {
     }
 }
 
-struct WorkingHour: Codable {
+struct WorkingHour: Codable, Hashable {
     let days: [Int]?
     let from, to: String?
 }

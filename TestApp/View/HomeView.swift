@@ -12,22 +12,44 @@ struct HomeView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            list
         }
-        .padding()
-        .onAppear {
-            Task {
-                try? await vm.fetchData()
-            }
-        }
+        .navigationTitle("Категории")
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(vm: HomeViewModel.homeViewModel)
+        NavigationStack {
+            HomeView(vm: HomeViewModel.homeViewModel)
+        }
+    }
+}
+
+extension HomeView {
+    @ViewBuilder private var list: some View {
+        if let categories = vm.recreationCenters?.categories {
+            List(categories, id: \.self) { value in
+                NavigationLink {
+                    
+                } label: {
+                    HStack {
+                        Text(value.name)
+                            .font(.headline)
+                            .bold()
+                        
+                        Spacer()
+                        
+                        Circle()
+                            .fill(Color(value.color.rawValue))
+                            .frame(width: 30, height: 30)
+                            .overlay {
+                                Text("\(value.count)")
+                            }
+                    }
+                }
+            }
+            .listStyle(.inset)
+        }
     }
 }
