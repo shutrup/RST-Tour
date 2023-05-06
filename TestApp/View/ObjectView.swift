@@ -23,15 +23,24 @@ struct ObjectView: View {
 struct ObjectView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ObjectView(color: .cyan10, objects: Object.mockObject)
+            ObjectView(color: .cyan10, objects: Object.mockObjects)
         }
     }
 }
 
 extension ObjectView {
     private var list: some View {
-        List(objects.filter({ $0.color == color }), id: \.self) { value in
-            Text(value.name)
+        List(objects.filter({ $0.color == color }), id: \.self) { object in
+            ObjectCellView(object: object)
+                .onTapGesture {
+                    if UIApplication.shared.canOpenURL(URL(string:"dgis://")!) {
+                        
+                        UIApplication.shared.open(URL(string:"dgis://2gis.ru/routeSearch/rsType/car/from/<lon>,<lat>/to/\(object.lon),\(object.lat)")!)
+                        
+                    } else {
+                        UIApplication.shared.open(URL(string:"https://itunes.apple.com/ru/app/id481627348?mt=8")!)
+                    }
+                }
         }
     }
 }
