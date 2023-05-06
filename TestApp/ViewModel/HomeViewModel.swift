@@ -32,5 +32,4 @@ final class HomeViewModel: ObservableObject {
             print("Error")
         }
     }
-    
 }
