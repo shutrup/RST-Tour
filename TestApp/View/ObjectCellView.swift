@@ -19,17 +19,14 @@ struct ObjectCellView: View {
                 .scaledToFill()
                 .cornerRadius(10)
             
-            VStack() {
+            VStack(spacing: 10) {
                 Text(object.name)
                     .font(.title2)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Spacer()
-                
                 Text(object.description)
                     .font(.callout)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
             }
         }
         .frame(height: 80)

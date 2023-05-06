@@ -31,19 +31,26 @@ struct ObjectView_Previews: PreviewProvider {
 
 extension ObjectView {
     private var list: some View {
-        List(objects.filter({ $0.color == color }), id: \.self) { object in
-            ObjectCellView(object: object)
-                .onTapGesture {
-                    if UIApplication.shared.canOpenURL(URL(string:"dgis://")!) {
-                        
-                    if let location = locationManager.lastLocation?.coordinate {
-                            UIApplication.shared.open(URL(string:"dgis://2gis.ru/routeSearch/rsType/car/from/\(location.longitude),\(location.latitude)/to/\(object.lon),\(object.lat)")!)
+        ScrollView {
+            ForEach(objects.filter({ $0.color == color }), id: \.self) { object in
+                VStack {
+                    ObjectCellView(object: object)
+                        .onTapGesture {
+                            if UIApplication.shared.canOpenURL(URL(string:"dgis://")!) {
+                                
+                            if let location = locationManager.lastLocation?.coordinate {
+                                    UIApplication.shared.open(URL(string:"dgis://2gis.ru/routeSearch/rsType/car/from/\(location.longitude),\(location.latitude)/to/\(object.lon),\(object.lat)")!)
+                                }
+                                
+                            } else {
+                                UIApplication.shared.open(URL(string:"https://itunes.apple.com/ru/app/id481627348?mt=8")!)
+                            }
                         }
-                        
-                    } else {
-                        UIApplication.shared.open(URL(string:"https://itunes.apple.com/ru/app/id481627348?mt=8")!)
-                    }
+                    
+                    Divider()
                 }
+            }
+            .padding(.horizontal)
         }
     }
 }
