@@ -47,6 +47,10 @@ struct Object: Codable, Hashable {
         case id, name, description, image, type, close, icon, color, lat, lon
         case workingHours = "working_hours"
     }
+    
+    static var mockObject: [Object] {
+        [Object(id: 0, name: "Массажный кабинет", description: "Для любителей физического и душевного конфорта", image: "https://rsttur.ru/web/file/tourPhoto/5f5065a0f03bc.jpg", type: .food, close: false, icon: .rstBasketFill, color: .cyan10, lat: 2.0, lon: 2.0, workingHours: nil)]
+    }
 }
 
 struct WorkingHour: Codable, Hashable {

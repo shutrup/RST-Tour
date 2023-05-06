@@ -28,10 +28,10 @@ struct HomeView_Previews: PreviewProvider {
 
 extension HomeView {
     @ViewBuilder private var list: some View {
-        if let categories = vm.recreationCenters?.categories {
-            List(categories, id: \.self) { value in
+        if let data = vm.recreationCenters {
+            List(data.categories, id: \.self) { value in
                 NavigationLink {
-                    
+                    ObjectView(color: value.color, objects: data.objects)
                 } label: {
                     HStack {
                         Text(value.name)
