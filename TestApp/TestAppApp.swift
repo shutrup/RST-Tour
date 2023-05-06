@@ -10,11 +10,12 @@ import SwiftUI
 @main
 struct TestAppApp: App {
     @StateObject private var vm = HomeViewModel.homeViewModel
+    @StateObject var locationManager = LocationManager()
     
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                HomeView(vm: vm)
+                HomeView(locationManager: locationManager, vm: vm)
             }
             .preferredColorScheme(.dark)
         }

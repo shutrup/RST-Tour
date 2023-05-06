@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @ObservedObject var locationManager: LocationManager
     @ObservedObject var vm: HomeViewModel
     
     var body: some View {
@@ -21,7 +22,7 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            HomeView(vm: HomeViewModel.homeViewModel)
+            HomeView(locationManager: LocationManager(), vm: HomeViewModel.homeViewModel)
         }
     }
 }
@@ -31,7 +32,7 @@ extension HomeView {
         if let data = vm.recreationCenters {
             List(data.categories, id: \.self) { value in
                 NavigationLink {
-                    ObjectView(color: value.color, objects: data.objects)
+                    ObjectView(locationManager: locationManager, objects: data.objects, color: value.color)
                 } label: {
                     HStack {
                         Text(value.name)

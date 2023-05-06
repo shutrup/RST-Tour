@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ObjectView: View {
-    var color: ColorName
+    @ObservedObject var locationManager: LocationManager
     @State var objects: [Object]
+    var color: ColorName
     
     var body: some View {
         VStack {
@@ -23,7 +24,7 @@ struct ObjectView: View {
 struct ObjectView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ObjectView(color: .cyan10, objects: Object.mockObjects)
+            ObjectView(locationManager: LocationManager(), objects: Object.mockObjects, color: .cyan10)
         }
     }
 }
@@ -35,7 +36,9 @@ extension ObjectView {
                 .onTapGesture {
                     if UIApplication.shared.canOpenURL(URL(string:"dgis://")!) {
                         
-                        UIApplication.shared.open(URL(string:"dgis://2gis.ru/routeSearch/rsType/car/from/<lon>,<lat>/to/\(object.lon),\(object.lat)")!)
+                    if let location = locationManager.lastLocation?.coordinate {
+                            UIApplication.shared.open(URL(string:"dgis://2gis.ru/routeSearch/rsType/car/from/\(location.longitude),\(location.latitude)/to/\(object.lon),\(object.lat)")!)
+                        }
                         
                     } else {
                         UIApplication.shared.open(URL(string:"https://itunes.apple.com/ru/app/id481627348?mt=8")!)

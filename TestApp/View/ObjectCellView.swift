@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct ObjectCellView: View {
     var object: Object
-    
+
     var body: some View {
         HStack(spacing: 25) {
             WebImage(url: URL(string: object.image))
